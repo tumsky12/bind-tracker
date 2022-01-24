@@ -18,5 +18,24 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^5.0.6"
+  },
+  "dependencies": {
+    "iohook": "^0.5.1",
+    "node-abi": "^2.9.0"
+  },
+  "iohook": {
+    "targets": [
+      "node-57",
+      "electron-70"
+    ],
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "arches": [
+      "x64",
+      "ia32"
+    ]
   }
 }

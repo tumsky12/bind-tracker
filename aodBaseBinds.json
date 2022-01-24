@@ -1,0 +1,594 @@
+{
+  "49": {
+    "key":"1",
+    "noMod":{
+      "bindName":"Replenishment Potion",
+      "abrev":"Adren",
+      "image":"enhancedReplenishmentPotion.png"
+    },
+    "shift":{
+        "bindName":"Limitless Sigil",
+        "abrev":"Sigil",
+        "image":"limitlessSigil.png"
+      },
+    "ctrl":null
+  },
+  "50": {
+    "key":"2",
+    "noMod":{
+      "bindName":"Detonate",
+      "abrev":"Deto",
+      "image":"detonate.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "51": {
+    "key":"3",
+    "noMod":{
+      "bindName":"Impact",
+      "abrev":"Impact",
+      "image":"impact.png"
+    },
+    "shift":{
+        "bindName":"Deep Impact",
+        "abrev":"D Imp",
+        "image":"deepImpact.png"
+      },
+    "ctrl":null
+  },
+  "52": {
+    "key":"4",
+    "noMod":{
+      "bindName":"Smoke Tendrils",
+      "abrev":"Tendrils",
+      "image":"smokeTendrils.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "53": {
+    "key":"5",
+    "noMod":{
+      "bindName":"Sunshine",
+      "abrev":"Sun",
+      "image":"sunshine.png"
+    },
+    "shift":{
+        "bindName":"barricade",
+        "abrev":"Cade",
+        "image":"barricade.png"
+      },
+    "ctrl":null
+  },
+  "54": {
+    "key":"6",
+    "noMod":{
+      "bindName":"Onslaught",
+      "abrev":"Onsl",
+      "image":"onslaught.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "55": {
+    "key":"7",
+    "noMod":{
+      "bindName":"Ring of Vigour",
+      "abrev":"Vig",
+      "image":"ringOfVigour.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "56": {
+    "key":"8",
+    "noMod":{
+      "bindName":"Planted Feet",
+      "abrev":"PF",
+      "image":"plantedFeet.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "57": {
+    "key":"9",
+    "noMod":{
+      "bindName":"Deflect Magic",
+      "abrev":"Magic",
+      "image":"deflectMagic.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "189": {
+    "key":"dash",
+    "noMod":{
+      "bindName":"Deflect Melee",
+      "abrev":"Melee",
+      "image":"deflectMelee.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "187": {
+    "key":"equal sign",
+    "noMod":{
+      "bindName":"Soul Split",
+      "abrev":"SS",
+      "image":"ss.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "81": {
+    "key":"q",
+    "noMod":{
+      "bindName":"Freedom",
+      "abrev":"Freed",
+      "image":"freedom.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "87": {
+    "key":"w",
+    "noMod":{
+      "bindName":"Tuska's Wrath",
+      "abrev":"Tuskas",
+      "image":"tuskasWrath.png"
+    },
+    "shift":{
+        "bindName":"Wrack",
+        "abrev":"Wrack",
+        "image":"wrack.png"
+      },
+    "ctrl":null
+  },
+  "69": {
+    "key":"e",
+    "noMod":{
+      "bindName":"Chain",
+      "abrev":"Chain",
+      "image":"chain.png"
+    },
+    "shift":{
+        "bindName":"Sacrifice",
+        "abrev":"Sacrifice",
+        "image":"sacrifice.png"
+      },
+    "ctrl":null
+  },
+  "82": {
+    "key":"r",
+    "noMod":{
+      "bindName":"Wild Magic",
+      "abrev":"WM",
+      "image":"wildMagic.png"
+    },
+    "shift":{
+        "bindName":"Guthix Staff",
+        "abrev":"G Staff",
+        "image":"guthixStaff.png"
+      },
+    "ctrl":{
+        "bindName":"Storm Shards",
+        "abrev":"Shards",
+        "image":"stormShards.png"
+      }
+  },
+  "84": {
+    "key":"t",
+    "noMod":{
+      "bindName":"Asphixiate",
+      "abrev":"Asphix",
+      "image":"asphyxiate.png"
+    },
+    "shift":{
+        "bindName":"Weapon Special Attack",
+        "abrev":"Spec Att",
+        "image":"weaponSpecialAttack.png"
+      },
+    "ctrl":{
+        "bindName":"Shatter",
+        "abrev":"Shatter",
+        "image":"shatter.png"
+      }
+  },
+  "89": {
+    "key":"y",
+    "noMod":{
+      "bindName":"Natual Instinct",
+      "abrev":"NI",
+      "image":"naturalInstinct.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "85": {
+    "key":"u",
+    "noMod":{
+      "bindName":"Main Hand Weapon",
+      "abrev":"MH",
+      "image":"praesulWand.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "79": {
+    "key":"o",
+    "noMod":{
+      "bindName":"Affliction",
+      "abrev":"T99",
+      "image":"affliction.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "65": {
+    "key":"a",
+    "noMod":{
+      "bindName":"Anticipation",
+      "abrev":"Anticip",
+      "image":"anticipation.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "83": {
+    "key":"s",
+    "noMod":{
+      "bindName":"Corruption Blast",
+      "abrev":"Corr",
+      "image":"corruptionBlast.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "68": {
+    "key":"d",
+    "noMod":{
+      "bindName":"Combust",
+      "abrev":"Combust",
+      "image":"combust.png"
+    },
+    "shift":{
+        "bindName":"Omnipower",
+        "abrev":"Omni",
+        "image":"omnipower.png"
+      },
+    "ctrl":null
+  },
+  "70": {
+    "key":"f",
+    "noMod":{
+      "bindName":"Dragon Breath",
+      "abrev":"D Brth",
+      "image":"dragonBreath.png"
+    },
+    "shift":{
+        "bindName":"Tsunami",
+        "abrev":"Tsunami",
+        "image":"tsunami.png"
+      },
+    "ctrl":null
+  },
+  "71": {
+    "key":"g",
+    "noMod":{
+      "dw":{      
+        "bindName":"Concentrated Blast",
+        "abrev":"Conc",
+        "image":"concentratedBlast.png"},
+      "2h":{
+        "bindName":"Sonic Wave",
+        "abrev":"Sonic",
+        "image":"sonicWave.png"
+      }
+    },
+    "shift":{
+        "bindName":"Metamorphosis",
+        "abrev":"Meta",
+        "image":"metamorphosis.png"
+      },
+    "ctrl":null
+  },
+  "72": {
+    "key":"h",
+    "noMod":{
+      "bindName":"Debilitate",
+      "abrev":"Debil",
+      "image":"debilitate.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "74": {
+    "key":"j",
+    "noMod":{
+      "bindName":"Devotion",
+      "abrev":"Devo",
+      "image":"devotion.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "75": {
+    "key":"k",
+    "noMod":{
+      "bindName":"Sailfish",
+      "abrev":"Sail",
+      "image":"sailfish.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "76": {
+    "key":"l",
+    "noMod":{
+      "bindName":"Guthix Rest",
+      "abrev":"G Rest",
+      "image":"guthixFlask.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "186": {
+    "key":"semi-colon",
+    "noMod":{
+      "bindName":"Prayer Restore",
+      "abrev":"Restore",
+      "image":"restoreFlask.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "220": {
+    "key":"back slash",
+    "noMod":{
+      "bindName":"Asylum Sureon's Ring",
+      "abrev":"ASR",
+      "image":"asylumSurgeonsRing.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "90": {
+    "key":"z",
+    "noMod":{
+      "bindName":"Shield",
+      "abrev":"Shield",
+      "image":"shield.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "88": {
+    "key":"x",
+    "noMod":{
+      "bindName":"Resonance",
+      "abrev":"Reso",
+      "image":"resonance.png"
+    },
+    "shift":{
+        "bindName":"Reflect",
+        "abrev":"Reflect",
+        "image":"reflect.png"
+      },
+    "ctrl":null
+  },
+  "67": {
+    "key":"c",
+    "noMod":{
+      "bindName":"Preparation",
+      "abrev":"Prep",
+      "image":"preparation.png"
+    },
+    "shift":{
+        "bindName":"Revenge",
+        "abrev":"Reven",
+        "image":"revenge.png"
+      },
+    "ctrl":null
+  },
+  "86": {
+    "key":"v",
+    "noMod":{
+      "bindName":"Provoke",
+      "abrev":"Voke",
+      "image":"provoke.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "78": {
+    "key":"n",
+    "noMod":{
+      "bindName":"Surge",
+      "abrev":"Surge",
+      "image":"surge.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "77": {
+    "key":"m",
+    "noMod":{
+      "bindName":"Escape",
+      "abrev":"Escape",
+      "image":"escape.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "190": {
+    "key":"period",
+    "noMod":{
+      "bindName":"Supreme Overload Salve",
+      "abrev":"Ovl",
+      "image":"overloadSalve.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "191": {
+    "key":"forward slash",
+    "noMod":{
+      "bindName":"Jelly",
+      "abrev":"Jelly",
+      "image":"jelly.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "112": {
+    "key":"f1",
+    "noMod":{
+      "bindName":"Spell Book Swap Lunars",
+      "abrev":"SBS L",
+      "image":"spellBookSwapLunar.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "113": {
+    "key":"f2",
+    "noMod":{
+      "bindName":"Vulnerability",
+      "abrev":"Vuln",
+      "image":"vulnerability.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "114": {
+    "key":"f3",
+    "noMod":{
+      "bindName":"Disruption Shield",
+      "abrev":"Disrtn S",
+      "image":"disruptionShield.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "115": {
+    "key":"f4",
+    "noMod":{
+      "bindName":"Group Vengence",
+      "abrev":"Veng",
+      "image":"vengenceGroup.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "116": {
+    "key":"f5",
+    "noMod":{
+      "bindName":"Spell Book Swap Normals",
+      "abrev":"SBS N",
+      "image":"spellBookSwapNormals.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "117": {
+    "key":"f6",
+    "noMod":{
+      "bindName":"Entangle",
+      "abrev":"Ent",
+      "image":"entangle.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "118": {
+    "key":"f7",
+    "noMod":{
+      "bindName":"Auto 2",
+      "abrev":"Auto 2",
+      "image":"iceBarrage.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "119": {
+    "key":"f8",
+    "noMod":{
+      "bindName":"Auto 1",
+      "abrev":"Auto 1",
+      "image":"bloodBarrage.png"
+    },
+    "shift":null,
+    "ctrl":{
+      "bindName":"Barge",
+      "abrev":"Barge",
+      "image":"barge.png"
+    }
+  },
+  "45": {
+    "key":"insert",
+    "noMod":{
+      "bindName":"MH Magic",
+      "abrev":"MH",
+      "image":"praesulWand.png"
+    },
+    "shift":null,
+    "ctrl":{
+        "bindName":"MH Melee",
+        "abrev":"SWH",
+        "image":"swh.png"
+      }
+  },
+  "36": {
+    "key":"home",
+    "noMod":{
+      "bindName":"OH Magic",
+      "abrev":"OH",
+      "image":"imperiumCore.png"
+    },
+    "shift":{
+        "bindName":"Flank",
+        "abrev":"Flank",
+        "image":"flanking.png"
+      },
+    "ctrl":{
+        "bindName":"OH Melee",
+        "abrev":"OH",
+        "image":"eee.png"
+      }
+  },
+  "33": {
+    "key":"page up",
+    "noMod":{
+      "bindName":"Familiar Special",
+      "abrev":"Famil",
+      "image":"summoningSpecialAttack.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "34": {
+    "key":"page down",
+    "noMod":{
+      "bindName":"Summoning Pot",
+      "abrev":"Sum",
+      "image":"summoningFlask.png"
+    },
+    "shift":null,
+    "ctrl":null
+  },
+  "35": {
+    "key":"end",
+    "noMod":{
+      "bindName":"2H Staff",
+      "abrev":"2H",
+      "image":"staffOfSliske.png"
+    },
+    "shift":null,
+    "ctrl":{
+      "bindName":"Bladed Dive",
+      "abrev":"BD",
+      "image":"bladedDive.png"
+    }
+  }
+}
