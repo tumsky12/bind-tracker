@@ -1,6 +1,6 @@
 # bind-tracker
 
-**Clone and run for a quick way to see Electron in action.**
+**Clone and run/ make for simple bind tracker.**
 
 This is a minimal electron app to display key strokes as images.
 
