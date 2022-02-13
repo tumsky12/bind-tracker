@@ -44,7 +44,7 @@ function createWindow () {
           click: getBindsFromUser
         },
         { 
-          label: 'Select Images',
+          label: 'Select Image Folder',
           click: getImageDirectoryFromUser
         }//,
         // { 
