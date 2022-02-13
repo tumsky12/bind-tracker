@@ -1,27 +1,31 @@
   body {
-    background-color: #00ff00;
-    font-family: 'RS',sans-serif;
+    background-color: rgb(23, 32, 39);
+    font-family: sans-serif;
   }
   
-  h1 {
-    color: #172027;
-    margin-left: 20px;
+  #menu-outer {
+    margin: 0 auto;
+  }
+
+  .table {
+    display: table;   /* Allow the centering to work */
+    margin: 0 auto;
   }
 
   ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    margin: 0 auto;
+    padding: 3px 3px 3px 3px;
     overflow: hidden;
-    background-color: rgb(23, 32, 39);
+    background-color: hsl(206, 22%, 9%);
   }
   
   li {
     float: left;
-    display: block;
-    padding: 6px 3px;
+    display: inline;
+    padding: 3px 3px 3px 3px;
   }
-
+  
   .container {
     text-decoration: none;
     position: relative;
@@ -31,6 +35,7 @@
     text-align: center;
     white-space: nowrap;
     overflow:hidden;
+    background-color: hsl(206, 26%, 12%)
   }
   .centered {
     position: absolute;

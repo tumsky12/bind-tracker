@@ -10,6 +10,8 @@ node_modules/
 .env
 *.local
 
+ignore/
+
 # Logs
 logs
 *.log
@@ -19,3 +21,4 @@ yarn-error.log*
 data/
 test.js
 demo_db_connection.js
+out/

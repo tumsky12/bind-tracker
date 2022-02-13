@@ -8,113 +8,18 @@
 </head>
 
 <body>
-  <ul></ul>
-  <script>
-    const ioHook = require('iohook');
-    const fs = require('fs');
-
-    const jsonKeycodes = fs.readFileSync('./keycodes.json');
-    const jsonbinds = fs.readFileSync('./aodBaseBinds.json');
-    const keycodes = JSON.parse(jsonKeycodes);
-    const binds = JSON.parse(jsonbinds);
-
-    const ul = document.querySelector('ul');
-    for (var i = 0; i < 10; i++) {
-      const li = document.createElement('li');
-      const cnt = document.createElement('div');
-      cnt.setAttribute('class', 'container');
-      li.appendChild(cnt);
-      ul.appendChild(li);
-    }
-
-    var lastEvent;
-    var cdBinds = [];
-    var dwEquiped = false;
-    ioHook.on('keydown', event => {
-     // if (JSON.stringify(event) != JSON.stringify(lastEvent)) {
-        const keycodeStr = event.rawcode.toString();
-        const shift = event.shiftKey;
-        const ctrl = event.ctrlKey;
-        const key = keycodes[keycodeStr]
-
-        if (keycodeStr in binds) {
-          const bindInfo = binds[keycodeStr];
-          let bindStr = null;
-          let imageName = null;
-          let abrev = null;
-
-          if (shift) {
-            if (bindInfo.shift) {
-              bindStr = bindInfo.shift.bindName;
-              abrev = bindInfo.shift.abrev;
-              imageName = bindInfo.shift.image;
-            }
-            else return
-          }
-          else if (ctrl) {
-            if (bindInfo.ctrl) {
-              bindStr = bindInfo.ctrl.bindName;
-              abrev = bindInfo.ctrl.abrev;
-              imageName = bindInfo.ctrl.image;
-            }
-            else return
-          }
-          else {
-            if (bindInfo.noMod) {
-              if ('dw' in bindInfo.noMod && dwEquiped) {
-                bindStr = bindInfo.noMod.dw.bindName;
-                abrev = bindInfo.noMod.dw.abrev;
-                imageName = bindInfo.noMod.dw.image;
-              }
-              else if ('2h' in bindInfo.noMod && !dwEquiped) {
-                bindStr = bindInfo.noMod['2h'].bindName;
-                abrev = bindInfo.noMod['2h'].abrev;
-                imageName = bindInfo.noMod['2h'].image;
-              }
-              else {
-                bindStr = bindInfo.noMod.bindName;
-                abrev = bindInfo.noMod.abrev;
-                imageName = bindInfo.noMod.image;
-              }
-            }
-            else return
-          }
-          if (abrev === '2H') { dwEquiped = false }
-          if (abrev === 'MH') { dwEquiped = true }
-          //if (bindStr !== 'Surge' && bindStr !== 'Escape') { lastEvent = event }
-          //change so can only use twice
-
-          if (!cdBinds.includes(abrev)) {
-            const li = document.createElement('li');
-            const cnt = document.createElement('div');
-            cnt.setAttribute('class', 'container');
-            const img = document.createElement('img')
-            img.src = './assets/bindIcons/' + imageName;
-            img.alt = bindStr;
-            const cntrTxt = document.createElement('div');
-            cntrTxt.setAttribute('class', 'centered');
-            const bindText = document.createTextNode(abrev);
-
-            cntrTxt.appendChild(bindText);
-            cnt.appendChild(img);
-            cnt.appendChild(cntrTxt);
-            li.appendChild(cnt);
-            ul.appendChild(li);
-            console.log(ul)
-            if (ul.children.length > 10) { ul.removeChild(ul.children[0]) }
-              cdBinds.push(abrev);  
-              console.log(cdBinds) 
-              setTimeout(() => {
-                cdBinds = cdBinds.filter(bind => bind != abrev);
-              }, 2000)
-          }
-          else {return;}
-          
-        }
-    });
-    ioHook.start();
-
-  </script>
+  <style>
+    ::-webkit-scrollbar{display: none;}
+    body {
+    margin: 0;
+    padding: 0;
+  }
+    </style>
+  <div id="menu-outer">
+    <div class="table">
+      <ul id="horizontal-list"></ul>
+    </div>
+  </div>
 
   <!-- You can also require other files to run in this process -->
   <script src="./renderer.js"></script>

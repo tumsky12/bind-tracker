@@ -1,7 +1,11 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu, MenuItem, dialog} = require('electron')
 const path = require('path')
 app.commandLine.appendSwitch("disable-gpu")
+
+const fs = require('fs')
+
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -10,14 +14,67 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 678,
-    height: 90,
+    width: 680,
+    height: 129,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true
-    },
-    frame:false
+      nodeIntegration: true,
+      contextIsolation: false 
+    },//,
+    //frame:false
+    titleBarStyle: 'hidden'
   })
+
+  //mainWindow.webContents.openDevTools();
+
+  const isMac = process.platform === 'darwin'
+  const template = [
+    {
+      label: 'File',
+      submenu: [
+        isMac ? { role: 'close' } : { role: 'quit' }
+      ]
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        { 
+          label: 'Select Binds',
+          click: getBindsFromUser
+        },
+        { 
+          label: 'Select Images',
+          click: getImageDirectoryFromUser
+        }//,
+        // { 
+        //   label: 'Hide Menu',
+        //   click: () => {mainWindow.setMenuBarVisibility(false)}
+        // }//,
+        // { role: 'separator' },
+        // { label: 'Set CD' },       
+        // { label: 'Set Max Abilities' },
+      ]
+    },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'Dev Tools',
+          click: () => {mainWindow.webContents.openDevTools()}
+        },
+        {
+          label: 'Learn More',
+          click: async () => {
+            const { shell } = require('electron')
+            await shell.openExternal('https://electronjs.org')
+          }
+        }
+      ]
+    }
+  ]
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
@@ -34,10 +91,46 @@ function createWindow () {
   })
 }
 
+const getBindsFromUser = () => {
+  const files = dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [
+      { name: 'Text Files', extensions: ['txt'] },
+      //{ name: 'Json Files', extensions: ['json'] }
+    ]
+  });
+
+  if (!files) { return; }
+
+  const file = files[0];
+  const content = fs.readFileSync(file).toString();
+
+  console.log(content);
+  mainWindow.webContents.send('binds-selected', file, content);
+
+};
+
+const getImageDirectoryFromUser = () => {
+  const path = dialog.showOpenDialog({
+    properties: ['openDirectory'],
+  });
+
+  if (!path) { return; }
+
+  //const file = files[0];
+  //const content = fs.readFileSync(file).toString();
+
+  console.log(path);
+  mainWindow.webContents.send('images-selected', path);
+};
+
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () =>{
+  createWindow()
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
