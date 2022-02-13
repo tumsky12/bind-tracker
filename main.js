@@ -23,7 +23,7 @@ function createWindow () {
     },//,
     //frame:false
     titleBarStyle: 'hidden',
-    icon: './Icon.png'
+    icon: './icon.ico'
   })
 
   //mainWindow.webContents.openDevTools();

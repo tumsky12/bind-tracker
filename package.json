@@ -52,7 +52,8 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "bind_tracker"
+            "name": "bind_tracker",
+            "iconUrl": "https://github.com/tumsky12/bind-tracker/blob/main/icon.ico"
           }
         }
       ]
