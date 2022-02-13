@@ -22,7 +22,8 @@ function createWindow () {
       contextIsolation: false 
     },//,
     //frame:false
-    titleBarStyle: 'hidden'
+    titleBarStyle: 'hidden',
+    icon: './Icon.png'
   })
 
   //mainWindow.webContents.openDevTools();
