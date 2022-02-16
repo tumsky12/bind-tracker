@@ -1,95 +1,107 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, Menu, MenuItem, dialog} = require('electron')
+const {app, BrowserWindow, Menu, MenuItem, dialog, ipcMain} = require('electron')
 const path = require('path')
 app.commandLine.appendSwitch("disable-gpu")
+const ioHook = require('iohook');
 
-const fs = require('fs')
+const fs = require('fs');
 
+const Store = require('./store.js');
+//const { devNull } = require('os');
 
+const defaultMainWindowSize = { width: 682, height: 129 }
+const frameHeight = 59;
+const frameWidth = 15;
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+const store = new Store({
+  configName: 'user-preferences',
+  defaults: {
+    windowBounds: defaultMainWindowSize,
+    bindsTxt: null,
+    imageDirectory: null,
+    bFrameless: false
+  }
+});
 
-function createWindow () {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({
-    width: 680,
-    height: 129,
+let mainWindow;
+let framelessWindow;
+
+// Some APIs can only be used after this event occurs.
+app.on('ready', () =>{
+  createWindow(store.get('bFrameless'));
+  ioHook.start();
+})
+
+app.on('window-all-closed', function () {
+  //// On macOS it is common for applications and their menu bar
+  //// to stay active until the user quits explicitly with Cmd + Q
+  //if (process.platform !== 'darwin') app.quit()
+  app.quit();
+})
+
+app.on('activate', function () {
+  // On macOS it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  createWindow(store.get('bFrameless'))
+})
+
+// Attach listener in the main process with the given ID
+ipcMain.on('close-frameless', () => {
+  store.set('bFrameless', false);
+  createWindow(false);
+  framelessWindow.close();
+});
+
+// Attach listener in the main process with the given ID
+ipcMain.on('open-frameless', () => {
+  store.set('bFrameless', true);
+  createWindow(true);
+  mainWindow.close();
+});
+
+function createWindow(bFrameless)
+{
+  let { width, height } = store.get('windowBounds');
+  
+  const newWindow  = new BrowserWindow({
+    width: width - (bFrameless ? frameWidth : 0),
+    height: height - (bFrameless ? frameHeight : 0),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
       contextIsolation: false 
-    },//,
-    //frame:false
-    titleBarStyle: 'hidden',
+    },
+    frame: (bFrameless ? false : true),
     icon: './icon.ico'
   })
 
-  //mainWindow.webContents.openDevTools();
+  ioHook.on('keydown', (bFrameless ? framelessWindowKeyDownListner : mainWindowKeyDownListner))
 
-  const isMac = process.platform === 'darwin'
-  const template = [
-    {
-      label: 'File',
-      submenu: [
-        isMac ? { role: 'close' } : { role: 'quit' }
-      ]
-    },
-    {
-      label: 'Edit',
-      submenu: [
-        { 
-          label: 'Select Binds',
-          click: getBindsFromUser
-        },
-        { 
-          label: 'Select Image Folder',
-          click: getImageDirectoryFromUser
-        }//,
-        // { 
-        //   label: 'Hide Menu',
-        //   click: () => {mainWindow.setMenuBarVisibility(false)}
-        // }//,
-        // { role: 'separator' },
-        // { label: 'Set CD' },       
-        // { label: 'Set Max Abilities' },
-      ]
-    },
-    {
-      role: 'help',
-      submenu: [
-        {
-          label: 'Dev Tools',
-          click: () => {mainWindow.webContents.openDevTools()}
-        },
-        {
-          label: 'Learn More',
-          click: async () => {
-            const { shell } = require('electron')
-            await shell.openExternal('https://github.com/tumsky12/bind-tracker')
-          }
-        }
-      ]
-    }
-  ]
+  newWindow.on('resize', () => {
+    let { width, height } = newWindow.getBounds();
+    store.set('windowBounds', { width, height });
+  });
 
-const menu = Menu.buildFromTemplate(template)
-Menu.setApplicationMenu(menu)
-
-  // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
-
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
+  newWindow.on('closed', function () {
+     ioHook.removeListener('keydown', (bFrameless ? framelessWindowKeyDownListner : mainWindowKeyDownListner))
+     if(bFrameless){framelessWindow = null;}
+     else{mainWindow = null;}
   })
+
+  newWindow.loadFile('index.html')
+  
+  if(bFrameless)
+  {
+    if (!framelessWindow || framelessWindow === null) 
+    framelessWindow = newWindow;
+  }
+  else
+  {
+    if (!mainWindow || mainWindow === null) 
+    mainWindow = newWindow;
+    const mainWindowMenu = Menu.buildFromTemplate(mainWindowTemplate);
+    Menu.setApplicationMenu(mainWindowMenu);
+  }
 }
 
 const getBindsFromUser = () => {
@@ -102,10 +114,8 @@ const getBindsFromUser = () => {
   });
 
   if (!files) { return; }
-
   const file = files[0];
   const content = fs.readFileSync(file).toString();
-
   console.log(content);
   mainWindow.webContents.send('binds-selected', file, content);
 
@@ -115,36 +125,71 @@ const getImageDirectoryFromUser = () => {
   const path = dialog.showOpenDialog({
     properties: ['openDirectory'],
   });
-
   if (!path) { return; }
-
-  //const file = files[0];
-  //const content = fs.readFileSync(file).toString();
-
   console.log(path);
   mainWindow.webContents.send('images-selected', path);
 };
 
+var mainWindowKeyDownListner = function(event){
+  keyEvent = {rawCode: event.rawCode, shiftKey: event.shiftKey, ctrlKey: event.ctrlKey, altKey: event.altKey}
+    mainWindow.webContents.send('keydown', event, keyEvent);
+}
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', () =>{
-  createWindow()
-})
+var framelessWindowKeyDownListner = function(event){
+  keyEvent = {rawCode: event.rawCode, shiftKey: event.shiftKey, ctrlKey: event.ctrlKey, altKey: event.altKey}
+    framelessWindow.webContents.send('keydown', event, keyEvent);
+}
 
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') app.quit()
-})
-
-app.on('activate', function () {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) createWindow()
-})
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+const mainWindowTemplate = [
+  {
+    label: 'File',
+    submenu: [
+     { role: 'quit' },
+    ]
+  },
+  {
+    label: 'Edit',
+    submenu: [
+      { 
+        label: 'Select Binds',
+        click: getBindsFromUser
+      },
+      { 
+        label: 'Select Image Folder',
+        click: getImageDirectoryFromUser
+      }
+    ]
+  },
+  {
+    label: 'View',
+    submenu: [
+      {
+        label: 'Default Size',
+        click: () => {mainWindow.setSize(defaultMainWindowSize.width, defaultMainWindowSize.height)}
+      },
+      {
+        label: 'Hide Title Bar',
+        click: () => {
+          createWindow()
+          mainWindow.close();
+        }
+      }        
+    ]
+  },
+  {
+    role: 'Help',
+    submenu: [
+      {
+        label: 'Dev Tools',
+        click: () => {mainWindow.webContents.openDevTools();}
+      },
+      {
+        label: 'Learn More',
+        click: async () => {
+          const { shell } = require('electron')
+          await shell.openExternal('https://github.com/tumsky12/bind-tracker')
+        }
+      }
+    ]
+  }
+]
