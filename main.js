@@ -170,7 +170,8 @@ const mainWindowTemplate = [
       {
         label: 'Hide Title Bar',
         click: () => {
-          createWindow()
+          store.set('bFrameless', true);
+          createWindow(true);
           mainWindow.close();
         }
       }        
