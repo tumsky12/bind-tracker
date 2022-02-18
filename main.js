@@ -10,8 +10,6 @@ const Store = require('./store.js');
 //const { devNull } = require('os');
 
 const defaultMainWindowSize = { width: 682, height: 129 }
-const frameHeight = 59;
-const frameWidth = 15;
 
 const store = new Store({
   configName: 'user-preferences',
@@ -19,7 +17,9 @@ const store = new Store({
     windowBounds: defaultMainWindowSize,
     bindsTxt: null,
     imageDirectory: null,
-    bFrameless: false
+    bFrameless: false,
+    bAlwaysOnTop: false,
+    frameHeight: 0
   }
 });
 
@@ -61,26 +61,38 @@ ipcMain.on('open-frameless', () => {
 
 function createWindow(bFrameless)
 {
-  let { width, height } = store.get('windowBounds');
-  
+  let { x, y, width, height } = store.get('windowBounds');
+
   const newWindow  = new BrowserWindow({
-    width: width - (bFrameless ? frameWidth : 0),
-    height: height - (bFrameless ? frameHeight : 0),
+    width: width,
+    height: height,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
-      contextIsolation: false 
+      contextIsolation: false
     },
     frame: (bFrameless ? false : true),
-    icon: './icon.ico'
+    icon: './icon.ico',
+    useContentSize: true
   })
+
+  if(x && y)
+    newWindow.setPosition(x , y);
+  // TO DO: change position for frameless
+  //  y + (bFrameless && frameHeight ? frameHeight : 0)
+
+  let bAlwaysOnTop = store.get('bAlwaysOnTop');
+  newWindow.setAlwaysOnTop(bAlwaysOnTop);
 
   ioHook.on('keydown', (bFrameless ? framelessWindowKeyDownListner : mainWindowKeyDownListner))
 
   newWindow.on('resize', () => {
-    let { width, height } = newWindow.getBounds();
-    store.set('windowBounds', { width, height });
+    let [contentX, contentY] = newWindow.getContentSize()
+    let { x, y, width, height } = newWindow.getBounds();
+    store.set('windowBounds', { x, y, width: contentX, height: contentY});
+    console.log(height, contentY);
   });
+
 
   newWindow.on('closed', function () {
      ioHook.removeListener('keydown', (bFrameless ? framelessWindowKeyDownListner : mainWindowKeyDownListner))
@@ -88,19 +100,21 @@ function createWindow(bFrameless)
      else{mainWindow = null;}
   })
 
-  newWindow.loadFile('index.html')
-  
+  newWindow.loadFile('index.html');
   if(bFrameless)
   {
-    if (!framelessWindow || framelessWindow === null) 
+    if (!framelessWindow || framelessWindow === null)
     framelessWindow = newWindow;
   }
   else
   {
-    if (!mainWindow || mainWindow === null) 
+    if (!mainWindow || mainWindow === null)
     mainWindow = newWindow;
     const mainWindowMenu = Menu.buildFromTemplate(mainWindowTemplate);
     Menu.setApplicationMenu(mainWindowMenu);
+    let [contentX, contentY] = newWindow.getContentSize()
+    let { x, y, width, height } = newWindow.getBounds();
+    store.set('frameHeight', height - contentY);
   }
 }
 
@@ -150,11 +164,11 @@ const mainWindowTemplate = [
   {
     label: 'Edit',
     submenu: [
-      { 
+      {
         label: 'Select Binds',
         click: getBindsFromUser
       },
-      { 
+      {
         label: 'Select Image Folder',
         click: getImageDirectoryFromUser
       }
@@ -174,7 +188,18 @@ const mainWindowTemplate = [
           createWindow(true);
           mainWindow.close();
         }
-      }        
+      },
+      {
+        id: 'bAlwaysOnTop',
+        label: 'Always On Top',
+        type: 'checkbox',
+        checked: (store.get('bAlwaysOnTop')),
+        click: () => {
+          let bChecked = Menu.getApplicationMenu().getMenuItemById('bAlwaysOnTop').checked;
+          store.set('bAlwaysOnTop', bChecked);
+          mainWindow.setAlwaysOnTop(bChecked);
+        }
+      },
     ]
   },
   {
