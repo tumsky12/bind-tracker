@@ -130,7 +130,7 @@ const getBindsFromUser = () => {
   if (!files) { return; }
   const file = files[0];
   const content = fs.readFileSync(file).toString();
-  console.log(content);
+  store.set('bindsTxt', content);
   mainWindow.webContents.send('binds-selected', file, content);
 
 };
@@ -141,6 +141,7 @@ const getImageDirectoryFromUser = () => {
   });
   if (!path) { return; }
   console.log(path);
+  store.set('imageDirectory', path);
   mainWindow.webContents.send('images-selected', path);
 };
 
